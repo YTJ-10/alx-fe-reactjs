@@ -7,6 +7,16 @@ import MainContent from './MainContent'
 import Footer from './Footer'
 import UserProfile from './components/UserProfile'
 
+// WelcomeMessage component
+function WelcomeMessage() {
+  return (
+    <div className="welcome-message">
+      <h2>Welcome to Our React Application!</h2>
+      <p>We're glad to have you here. Explore the features and enjoy your experience.</p>
+    </div>
+  )
+}
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -14,6 +24,7 @@ function App() {
     <>
       <Header />
       <MainContent />
+      <WelcomeMessage />
       <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
       <Footer />
       <div>
