@@ -8,7 +8,7 @@ import Footer from './Footer'
 import UserProfile from './components/UserProfile'
 import Counter from './components/Counter'
 import ProfilePage from './ProfilePage'
-import UserContext from './UserContext'
+import UserContext from './context/UserContext'  // Updated import path
 
 // WelcomeMessage component
 function WelcomeMessage() {
