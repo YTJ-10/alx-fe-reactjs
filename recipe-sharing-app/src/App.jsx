@@ -5,6 +5,8 @@ import RecipeDetails from './components/RecipeDetails';
 import EditRecipeForm from './components/EditRecipeForm';
 import SearchBar from './components/SearchBar';
 import RecipeFilters from './components/RecipeFilters';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 import './App.css';
 
 function App() {
@@ -22,6 +24,16 @@ function App() {
               <Route path="/" element={
                 <>
                   <AddRecipeForm />
+                  
+                  {/* Personalization Section */}
+                  <div className="personalization-section">
+                    <div className="personalization-column">
+                      <FavoritesList />
+                    </div>
+                    <div className="personalization-column">
+                      <RecommendationsList />
+                    </div>
+                  </div>
                   
                   <div className="search-filters-section">
                     <div className="search-container">
