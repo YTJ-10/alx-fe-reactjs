@@ -26,12 +26,6 @@ function Services() {
     cursor: 'pointer'
   };
 
-  const serviceCardHoverStyle = {
-    transform: 'translateY(-5px)',
-    boxShadow: '0 8px 15px rgba(0,0,0,0.2)',
-    borderColor: '#3498db'
-  };
-
   const detailStyle = {
     backgroundColor: '#ecf0f1',
     padding: '2rem',
@@ -45,43 +39,22 @@ function Services() {
       id: 1,
       title: 'Technology Consulting',
       description: 'Strategic IT guidance and digital transformation consulting.',
-      details: 'Our technology consulting services help businesses leverage cutting-edge technologies to streamline operations and drive innovation. We provide comprehensive assessments, roadmap development, and implementation strategies.',
+      details: 'Our technology consulting services help businesses leverage cutting-edge technologies to streamline operations and drive innovation.',
       icon: '💻'
     },
     {
       id: 2,
       title: 'Market Analysis',
       description: 'In-depth market research and competitive intelligence.',
-      details: 'Gain valuable insights into your market with our comprehensive analysis services. We provide detailed reports on market trends, customer behavior, and competitive landscape to inform your business decisions.',
+      details: 'Gain valuable insights into your market with our comprehensive analysis services.',
       icon: '📊'
     },
     {
       id: 3,
       title: 'Product Development',
       description: 'End-to-end product design and development services.',
-      details: 'From concept to launch, our product development team creates innovative solutions that meet market needs. We specialize in agile development methodologies and user-centered design principles.',
+      details: 'From concept to launch, our product development team creates innovative solutions.',
       icon: '🚀'
-    },
-    {
-      id: 4,
-      title: 'Digital Marketing',
-      description: 'Comprehensive online marketing strategies.',
-      details: 'Boost your online presence with our digital marketing services including SEO, social media marketing, content strategy, and PPC campaigns tailored to your business goals.',
-      icon: '🎯'
-    },
-    {
-      id: 5,
-      title: 'Cloud Solutions',
-      description: 'Scalable cloud infrastructure and migration services.',
-      details: 'Modernize your IT infrastructure with our cloud solutions. We help businesses migrate to the cloud, optimize cloud resources, and implement cloud-native applications for better scalability and cost-efficiency.',
-      icon: '☁️'
-    },
-    {
-      id: 6,
-      title: 'Data Analytics',
-      description: 'Advanced data analysis and business intelligence.',
-      details: 'Transform your data into actionable insights with our analytics services. We help you make data-driven decisions through advanced analytics, visualization, and predictive modeling.',
-      icon: '📈'
     }
   ];
 
@@ -90,9 +63,7 @@ function Services() {
       <h1 style={{ 
         textAlign: 'center', 
         color: '#2c3e50', 
-        marginBottom: '1rem',
-        borderBottom: '3px solid #3498db',
-        paddingBottom: '1rem'
+        marginBottom: '1rem' 
       }}>
         Our Services
       </h1>
@@ -112,17 +83,11 @@ function Services() {
             key={service.id}
             style={{
               ...serviceCardStyle,
-              ...(selectedService === service.id ? serviceCardHoverStyle : {})
-            }}
-            onMouseEnter={(e) => {
-              if (selectedService !== service.id) {
-                Object.assign(e.target.style, serviceCardHoverStyle);
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (selectedService !== service.id) {
-                Object.assign(e.target.style, serviceCardStyle);
-              }
+              ...(selectedService === service.id ? { 
+                transform: 'translateY(-5px)',
+                boxShadow: '0 8px 15px rgba(0,0,0,0.2)',
+                borderColor: '#3498db'
+              } : {})
             }}
             onClick={() => setSelectedService(selectedService === service.id ? null : service.id)}
           >

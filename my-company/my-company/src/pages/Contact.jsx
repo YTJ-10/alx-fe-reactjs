@@ -28,11 +28,7 @@ function Contact() {
   const containerStyle = {
     padding: '40px 20px',
     maxWidth: '800px',
-    margin: '0 auto',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '3rem',
-    alignItems: 'start'
+    margin: '0 auto'
   };
 
   const formStyle = {
@@ -48,8 +44,7 @@ function Contact() {
     margin: '8px 0 20px 0',
     border: '2px solid #ecf0f1',
     borderRadius: '4px',
-    fontSize: '1rem',
-    transition: 'border-color 0.3s'
+    fontSize: '1rem'
   };
 
   const textareaStyle = {
@@ -65,19 +60,7 @@ function Contact() {
     padding: '12px 30px',
     fontSize: '1rem',
     borderRadius: '4px',
-    cursor: isSubmitting ? 'not-allowed' : 'pointer',
-    transition: 'background-color 0.3s'
-  };
-
-  const infoStyle = {
-    padding: '2rem'
-  };
-
-  const contactItemStyle = {
-    marginBottom: '1.5rem',
-    padding: '1rem',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '4px'
+    cursor: isSubmitting ? 'not-allowed' : 'pointer'
   };
 
   return (
@@ -97,8 +80,6 @@ function Contact() {
               onChange={handleChange}
               style={inputStyle}
               required
-              onFocus={(e) => e.target.style.borderColor = '#3498db'}
-              onBlur={(e) => e.target.style.borderColor = '#ecf0f1'}
             />
           </div>
           
@@ -114,8 +95,6 @@ function Contact() {
               onChange={handleChange}
               style={inputStyle}
               required
-              onFocus={(e) => e.target.style.borderColor = '#3498db'}
-              onBlur={(e) => e.target.style.borderColor = '#ecf0f1'}
             />
           </div>
           
@@ -130,8 +109,6 @@ function Contact() {
               onChange={handleChange}
               style={textareaStyle}
               required
-              onFocus={(e) => e.target.style.borderColor = '#3498db'}
-              onBlur={(e) => e.target.style.borderColor = '#ecf0f1'}
             />
           </div>
           
@@ -143,30 +120,6 @@ function Contact() {
             {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
-      </div>
-
-      <div style={infoStyle}>
-        <h2 style={{ color: '#2c3e50', marginBottom: '2rem' }}>Get in Touch</h2>
-        
-        <div style={contactItemStyle}>
-          <h3 style={{ color: '#3498db', marginBottom: '0.5rem' }}>📍 Address</h3>
-          <p>123 Business District<br />Tech City, TC 10001</p>
-        </div>
-
-        <div style={contactItemStyle}>
-          <h3 style={{ color: '#3498db', marginBottom: '0.5rem' }}>📞 Phone</h3>
-          <p>+1 (555) 123-4567</p>
-        </div>
-
-        <div style={contactItemStyle}>
-          <h3 style={{ color: '#3498db', marginBottom: '0.5rem' }}>✉️ Email</h3>
-          <p>info@techcorp.com</p>
-        </div>
-
-        <div style={contactItemStyle}>
-          <h3 style={{ color: '#3498db', marginBottom: '0.5rem' }}>🕒 Business Hours</h3>
-          <p>Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 2:00 PM</p>
-        </div>
       </div>
     </div>
   );

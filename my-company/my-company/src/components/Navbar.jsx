@@ -16,10 +16,6 @@ function Navbar() {
     transition: 'background-color 0.3s'
   };
 
-  const linkHoverStyle = {
-    backgroundColor: '#34495e'
-  };
-
   return (
     <nav style={navStyle}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -30,32 +26,32 @@ function Navbar() {
           <Link 
             to="/" 
             style={linkStyle}
-            onMouseEnter={(e) => Object.assign(e.target.style, linkHoverStyle)}
-            onMouseLeave={(e) => Object.assign(e.target.style, { backgroundColor: 'transparent' })}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#34495e'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             Home
           </Link>
           <Link 
             to="/about" 
             style={linkStyle}
-            onMouseEnter={(e) => Object.assign(e.target.style, linkHoverStyle)}
-            onMouseLeave={(e) => Object.assign(e.target.style, { backgroundColor: 'transparent' })}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#34495e'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             About
           </Link>
           <Link 
             to="/services" 
             style={linkStyle}
-            onMouseEnter={(e) => Object.assign(e.target.style, linkHoverStyle)}
-            onMouseLeave={(e) => Object.assign(e.target.style, { backgroundColor: 'transparent' })}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#34495e'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             Services
           </Link>
           <Link 
             to="/contact" 
             style={linkStyle}
-            onMouseEnter={(e) => Object.assign(e.target.style, linkHoverStyle)}
-            onMouseLeave={(e) => Object.assign(e.target.style, { backgroundColor: 'transparent' })}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#34495e'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
           >
             Contact
           </Link>
