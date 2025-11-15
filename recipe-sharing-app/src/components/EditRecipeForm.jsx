@@ -68,8 +68,8 @@ const EditRecipeForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Added event.preventDefault() here
     
     if (!formData.title.trim() || !formData.description.trim()) {
       alert('Please fill in required fields');
