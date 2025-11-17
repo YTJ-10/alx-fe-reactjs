@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "github-user-search",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "VITE_APP_TITLE": "GitHub User Search"
+  }
+}

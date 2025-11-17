@@ -10,62 +10,41 @@ const githubAPI = axios.create({
   timeout: 15000,
 });
 
-/**
- * Advanced search for GitHub users with multiple criteria
- * @param {Object} params - Search parameters
- * @param {string} params.username - Username to search for
- * @param {string} params.location - Location filter
- * @param {string} params.minRepos - Minimum repositories
- * @param {string} params.language - Programming language
- * @param {string} params.followers - Minimum followers
- * @param {string} params.sort - Sort field (followers, repositories, joined)
- * @param {string} params.order - Sort order (asc, desc)
- * @param {number} page - Page number
- * @returns {Promise<Object>} Search results
- */
 export const advancedSearchUsers = async (params, page = 1) => {
   try {
     const queryParts = [];
 
-    // Add username search
     if (params.username.trim()) {
       queryParts.push(`${params.username.trim()} in:login`);
     }
 
-    // Add location filter
     if (params.location.trim()) {
       queryParts.push(`location:${params.location.trim()}`);
     }
 
-    // Add repository count filter
     if (params.minRepos) {
       queryParts.push(`repos:>=${params.minRepos}`);
     }
 
-    // Add language filter
     if (params.language.trim()) {
       queryParts.push(`language:${params.language.trim()}`);
     }
 
-    // Add followers filter
     if (params.followers) {
       queryParts.push(`followers:>=${params.followers}`);
     }
 
-    // Build final query string
     let queryString = queryParts.join(' ');
     if (!queryString.trim()) {
       throw new Error('Please provide at least one search criteria');
     }
 
-    // Build URL parameters
     const urlParams = new URLSearchParams({
       q: queryString,
       page: page.toString(),
       per_page: '30'
     });
 
-    // Add sort and order if not best-match
     if (params.sort !== 'best-match') {
       urlParams.append('sort', params.sort);
       urlParams.append('order', params.order);
@@ -74,7 +53,11 @@ export const advancedSearchUsers = async (params, page = 1) => {
     const response = await githubAPI.get(`/search/users?${urlParams}`);
 
     if (response.status === 200) {
-      // Enhanced: Fetch additional details for each user
+      // Only log errors in development
+      if (import.meta.env.DEV) {
+        console.log('API Response:', response.data);
+      }
+      
       const usersWithDetails = await Promise.all(
         response.data.items.map(async (user) => {
           try {
@@ -84,7 +67,10 @@ export const advancedSearchUsers = async (params, page = 1) => {
               ...userDetails.data
             };
           } catch (error) {
-            console.warn(`Could not fetch details for user: ${user.login}`);
+            // Only log in development
+            if (import.meta.env.DEV) {
+              console.warn(`Could not fetch details for user: ${user.login}`);
+            }
             return user;
           }
         })
@@ -98,24 +84,34 @@ export const advancedSearchUsers = async (params, page = 1) => {
       throw new Error(`API returned status: ${response.status}`);
     }
   } catch (error) {
+    // Improved error handling
+    let errorMessage = 'Failed to search users';
+    
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 403) {
-        throw new Error('GitHub API rate limit exceeded. Please try again in a few minutes.');
-      } else if (error.response?.status === 422) {
-        throw new Error('Invalid search parameters. Please check your filters.');
-      } else if (error.response?.status === 503) {
-        throw new Error('GitHub API is temporarily unavailable. Please try again later.');
+      switch (error.response?.status) {
+        case 403:
+          errorMessage = 'GitHub API rate limit exceeded. Please try again in a few minutes.';
+          break;
+        case 422:
+          errorMessage = 'Invalid search parameters. Please check your filters.';
+          break;
+        case 503:
+          errorMessage = 'GitHub API is temporarily unavailable. Please try again later.';
+          break;
+        case 404:
+          errorMessage = 'No users found matching your criteria.';
+          break;
+        default:
+          errorMessage = error.response?.data?.message || 'Network error occurred';
       }
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
     }
-    throw new Error(error.message || 'Failed to search users');
+    
+    throw new Error(errorMessage);
   }
 };
 
-/**
- * Get detailed user information
- * @param {string} username - GitHub username
- * @returns {Promise<Object>} User details
- */
 export const getUserDetails = async (username) => {
   try {
     const response = await githubAPI.get(`/users/${username}`);
@@ -125,19 +121,5 @@ export const getUserDetails = async (username) => {
       throw new Error('User not found');
     }
     throw new Error('Failed to fetch user details');
-  }
-};
-
-/**
- * Check GitHub API rate limits
- * @returns {Promise<Object>} Rate limit information
- */
-export const getRateLimit = async () => {
-  try {
-    const response = await githubAPI.get('/rate_limit');
-    return response.data;
-  } catch (error) {
-    console.error('Error checking rate limit:', error);
-    return null;
   }
 };
