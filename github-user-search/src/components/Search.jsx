@@ -38,13 +38,16 @@ const Search = () => {
     try {
       const result = await advancedSearchUsers(searchParams, newPage);
       
+      // Safely handle the response data
+      const userItems = result?.items || [];
+      
       if (newPage === 1) {
-        setUsers(result.items);
+        setUsers(userItems);
       } else {
-        setUsers(prev => [...prev, ...result.items]);
+        setUsers(prev => [...prev, ...userItems]);
       }
       
-      setHasMore(result.items.length === 30); // GitHub API returns max 30 items per page
+      setHasMore(userItems.length === 30); // GitHub API returns max 30 items per page
       setPage(newPage);
     } catch (err) {
       setError(err.message || 'Failed to search users. Please try again.');
@@ -260,7 +263,7 @@ const Search = () => {
           </div>
         )}
 
-        {/* Results */}
+        {/* Results - Pass users array safely */}
         <UserList users={users} loading={loading} />
 
         {/* Load More Button */}
