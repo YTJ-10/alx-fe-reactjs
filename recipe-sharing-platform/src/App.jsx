@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import RecipeDetail from './components/RecipeDetail';
+import AddRecipeForm from './components/AddRecipeForm';
 
 function App() {
   return (
@@ -14,8 +15,7 @@ function App() {
               <h1 className="text-2xl font-bold text-gray-800">RecipeShare</h1>
               <nav className="flex space-x-4">
                 <a href="/" className="text-gray-600 hover:text-gray-900">Home</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900">Recipes</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900">Add Recipe</a>
+                <a href="/add-recipe" className="text-gray-600 hover:text-gray-900">Add Recipe</a>
               </nav>
             </div>
           </div>
@@ -26,6 +26,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/recipe/:id" element={<RecipeDetail />} />
+            <Route path="/add-recipe" element={<AddRecipeForm />} />
           </Routes>
         </main>
 
