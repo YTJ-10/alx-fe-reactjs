@@ -11,7 +11,7 @@ const AddRecipeForm = () => {
   
   const [errors, setErrors] = useState({});
 
-  // Handle input changes
+  // Handle input changes - FIXED to use e.target.value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
