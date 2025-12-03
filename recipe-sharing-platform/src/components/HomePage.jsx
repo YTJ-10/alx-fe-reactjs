@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -8,7 +9,6 @@ const HomePage = () => {
   useEffect(() => {
     const loadRecipes = async () => {
       try {
-        // Fetch the data.json file
         const response = await fetch('/src/data.json');
         if (!response.ok) {
           throw new Error('Failed to load recipes');
@@ -50,9 +50,10 @@ const HomePage = () => {
         {/* Responsive Recipe Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {recipes.map((recipe) => (
-            <div
+            <Link 
+              to={`/recipe/${recipe.id}`} 
               key={recipe.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1"
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 block"
             >
               {/* Recipe Image */}
               <div className="h-48 overflow-hidden">
@@ -69,11 +70,11 @@ const HomePage = () => {
                 <p className="text-gray-600 mb-4">{recipe.summary}</p>
                 
                 {/* View Recipe Button */}
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                <div className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 text-center">
                   View Recipe
-                </button>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
