@@ -9,9 +9,9 @@ const blogPosts = {
 };
 
 const BlogPost = () => {
-  const { postId } = useParams();
+  const { id } = useParams(); // Changed from postId to id
   const navigate = useNavigate();
-  const post = blogPosts[postId];
+  const post = blogPosts[id];
 
   if (!post) {
     return (
@@ -30,7 +30,7 @@ const BlogPost = () => {
       <h2>{post.title}</h2>
       <div className="post-content">
         <p>{post.content}</p>
-        <p><strong>Post ID:</strong> {postId}</p>
+        <p><strong>Post ID:</strong> {id}</p> {/* Changed from postId to id */}
       </div>
       <button onClick={() => navigate('/blog')} className="back-btn">
         Back to Blog

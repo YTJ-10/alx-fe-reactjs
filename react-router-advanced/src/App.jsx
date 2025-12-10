@@ -65,7 +65,7 @@ function App() {
             
             {/* Blog Routes with Dynamic Routing */}
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:postId" element={<BlogPost />} />
+            <Route path="/blog/:id" element={<BlogPost />} /> {/* Changed from :postId to :id */}
             
             {/* Users Routes with Dynamic Routing */}
             <Route path="/users" element={<Users />} />
@@ -104,7 +104,7 @@ function App() {
           <h3>Features Demonstrated:</h3>
           <ul>
             <li><strong>Nested Routes:</strong> Profile has nested routes (ProfileDetails, ProfileSettings)</li>
-            <li><strong>Dynamic Routing:</strong> Blog posts (/blog/:postId) and user profiles (/users/:userId) use URL parameters</li>
+            <li><strong>Dynamic Routing:</strong> Blog posts (/blog/:id) and user profiles (/users/:userId) use URL parameters</li>
             <li><strong>Protected Routes:</strong> Profile and Dashboard require authentication</li>
             <li><strong>404 Handling:</strong> Custom NotFound page for invalid routes</li>
             <li><strong>Programmatic Navigation:</strong> Using useNavigate hook in components</li>
