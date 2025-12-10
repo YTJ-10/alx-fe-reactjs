@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import './RegistrationForm.css';
 
 const RegistrationForm = () => {
-  // State for form fields
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+  // Individual state variables for each form field
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // State for form errors
   const [errors, setErrors] = useState({
@@ -20,14 +18,64 @@ const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
-  // Handle input changes
+  // Handle input changes with individual handlers
+  const handleUsernameChange = (e) => {
+    const value = e.target.value;
+    setUsername(value);
+    // Clear error when user types
+    if (errors.username) {
+      setErrors({
+        ...errors,
+        username: '',
+      });
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    // Clear error when user types
+    if (errors.email) {
+      setErrors({
+        ...errors,
+        email: '',
+      });
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    // Clear error when user types
+    if (errors.password) {
+      setErrors({
+        ...errors,
+        password: '',
+      });
+    }
+  };
+
+  // Alternative: Single handler using name attribute
+  /*
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    // Clear error for this field when user starts typing
+    
+    // Use switch or if-else to update the correct state
+    switch (name) {
+      case 'username':
+        setUsername(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+    
+    // Clear error for this field
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -35,70 +83,27 @@ const RegistrationForm = () => {
       });
     }
   };
+  */
 
-  // BASIC VALIDATION LOGIC - Check that no fields are left empty
+  // Basic validation logic - check that no fields are left empty
   const validateForm = () => {
     let valid = true;
     const newErrors = { username: '', email: '', password: '' };
 
-    // BASIC VALIDATION: Check that no fields are left empty
-    if (!formData.username) {
+    // Check if username is empty
+    if (!username.trim()) {
       newErrors.username = 'Username is required';
       valid = false;
     }
 
-    if (!formData.email) {
+    // Check if email is empty
+    if (!email.trim()) {
       newErrors.email = 'Email is required';
       valid = false;
     }
 
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-      valid = false;
-    }
-
-    // Extended validation (optional - beyond basic requirements)
-    if (valid) {
-      // Additional username validation
-      if (formData.username.length < 3) {
-        newErrors.username = 'Username must be at least 3 characters';
-        valid = false;
-      }
-
-      // Additional email validation
-      if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        newErrors.email = 'Email is invalid';
-        valid = false;
-      }
-
-      // Additional password validation
-      if (formData.password.length < 6) {
-        newErrors.password = 'Password must be at least 6 characters';
-        valid = false;
-      }
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
-
-  // Alternative: Simplified basic validation ONLY (as per requirements)
-  const validateFormBasic = () => {
-    let valid = true;
-    const newErrors = { username: '', email: '', password: '' };
-
-    // SIMPLE BASIC VALIDATION - Just check for empty fields
-    if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
-      valid = false;
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-      valid = false;
-    }
-
-    if (!formData.password.trim()) {
+    // Check if password is empty
+    if (!password.trim()) {
       newErrors.password = 'Password is required';
       valid = false;
     }
@@ -112,32 +117,37 @@ const RegistrationForm = () => {
     e.preventDefault();
     setSubmitMessage('');
 
-    // Validate form using basic validation
-    if (!validateFormBasic()) {
+    // Validate form - basic check for empty fields
+    if (!validateForm()) {
       return;
     }
 
     setIsSubmitting(true);
 
     try {
+      // Prepare data for API call
+      const userData = {
+        username: username,
+        email: email,
+        password: password,
+      };
+
       // Simulate API call to mock endpoint
       const response = await fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(userData),
       });
 
       if (response.ok) {
         const data = await response.json();
         setSubmitMessage(`Registration successful! User ID: ${data.id || 'Mock ID'}`);
-        // Reset form
-        setFormData({
-          username: '',
-          email: '',
-          password: '',
-        });
+        // Reset form by clearing individual states
+        setUsername('');
+        setEmail('');
+        setPassword('');
       } else {
         throw new Error('Registration failed');
       }
@@ -148,16 +158,17 @@ const RegistrationForm = () => {
     }
   };
 
-  // Helper function to check if all fields are empty (for UI)
+  // Check if all fields are empty (for disabling clear button)
   const areAllFieldsEmpty = () => {
-    return !formData.username && !formData.email && !formData.password;
+    return !username && !email && !password;
   };
 
   return (
     <div className="registration-container">
       <h2>User Registration (Controlled Components)</h2>
       <p className="form-description">
-        Basic validation: Checks that no fields are left empty before submission.
+        This form uses controlled components with individual state variables for each field.
+        Basic validation ensures no fields are left empty before submission.
       </p>
       
       <form onSubmit={handleSubmit} className="registration-form">
@@ -167,13 +178,13 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
-            onChange={handleInputChange}
+            value={username} {/* Controlled component: value bound to state */}
+            onChange={handleUsernameChange}
             className={errors.username ? 'error' : ''}
             placeholder="Enter your username"
           />
           {errors.username && <span className="error-message">{errors.username}</span>}
-          {!formData.username && !errors.username && (
+          {!username && !errors.username && (
             <span className="field-hint">Required field</span>
           )}
         </div>
@@ -184,13 +195,13 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleInputChange}
+            value={email} {/* Controlled component: value bound to state */}
+            onChange={handleEmailChange}
             className={errors.email ? 'error' : ''}
             placeholder="Enter your email"
           />
           {errors.email && <span className="error-message">{errors.email}</span>}
-          {!formData.email && !errors.email && (
+          {!email && !errors.email && (
             <span className="field-hint">Required field</span>
           )}
         </div>
@@ -201,13 +212,13 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleInputChange}
+            value={password} {/* Controlled component: value bound to state */}
+            onChange={handlePasswordChange}
             className={errors.password ? 'error' : ''}
             placeholder="Enter your password"
           />
           {errors.password && <span className="error-message">{errors.password}</span>}
-          {!formData.password && !errors.password && (
+          {!password && !errors.password && (
             <span className="field-hint">Required field</span>
           )}
         </div>
@@ -224,8 +235,10 @@ const RegistrationForm = () => {
           <button 
             type="button" 
             onClick={() => {
-              // Clear form button
-              setFormData({ username: '', email: '', password: '' });
+              // Clear all individual state variables
+              setUsername('');
+              setEmail('');
+              setPassword('');
               setErrors({ username: '', email: '', password: '' });
               setSubmitMessage('');
             }}
@@ -242,20 +255,16 @@ const RegistrationForm = () => {
           </div>
         )}
 
-        {/* Validation status indicator */}
-        <div className="validation-status">
-          <h4>Validation Status:</h4>
-          <div className="status-item">
-            <span className={`status-indicator ${formData.username ? 'valid' : 'invalid'}`}></span>
-            <span>Username: {formData.username ? '✓ Provided' : '✗ Required'}</span>
+        <div className="state-display">
+          <h4>Current Form State:</h4>
+          <div className="state-item">
+            <strong>Username:</strong> <code>"{username}"</code>
           </div>
-          <div className="status-item">
-            <span className={`status-indicator ${formData.email ? 'valid' : 'invalid'}`}></span>
-            <span>Email: {formData.email ? '✓ Provided' : '✗ Required'}</span>
+          <div className="state-item">
+            <strong>Email:</strong> <code>"{email}"</code>
           </div>
-          <div className="status-item">
-            <span className={`status-indicator ${formData.password ? 'valid' : 'invalid'}`}></span>
-            <span>Password: {formData.password ? '✓ Provided' : '✗ Required'}</span>
+          <div className="state-item">
+            <strong>Password:</strong> <code>"{'•'.repeat(password.length)}"</code>
           </div>
         </div>
       </form>

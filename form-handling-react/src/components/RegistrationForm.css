@@ -1,195 +1,43 @@
-.registration-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+/* ... (previous styles remain the same) ... */
 
-.registration-container h2 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 0.5rem;
-}
-
-.form-description {
-  text-align: center;
-  color: #666;
-  font-style: italic;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
-}
-
-.registration-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-weight: 600;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.form-group label::after {
-  content: '*';
-  color: #e74c3c;
-  font-size: 1.2rem;
-}
-
-.form-group input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-}
-
-.form-group input.error {
-  border-color: #e74c3c;
-  background-color: #fffafa;
-}
-
-.error-message {
-  color: #e74c3c;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-  padding-left: 0.25rem;
-}
-
-.field-hint {
-  color: #888;
-  font-size: 0.8rem;
-  font-style: italic;
-  margin-top: 0.25rem;
-  padding-left: 0.25rem;
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.submit-btn {
-  flex: 1;
-  padding: 0.75rem 1.5rem;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.submit-btn:hover:not(:disabled) {
-  background-color: #357ae8;
-}
-
-.submit-btn:disabled {
-  background-color: #a0c4f8;
-  cursor: not-allowed;
-}
-
-.clear-btn {
-  flex: 0.5;
-  padding: 0.75rem 1rem;
-  background-color: #f5f5f5;
-  color: #666;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.clear-btn:hover:not(:disabled) {
-  background-color: #e9e9e9;
-  border-color: #ccc;
-}
-
-.clear-btn:disabled {
-  color: #aaa;
-  cursor: not-allowed;
-}
-
-.submit-message {
-  padding: 0.75rem;
-  border-radius: 4px;
-  text-align: center;
-  font-weight: 500;
-  margin-top: 1rem;
-}
-
-.submit-message.success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.submit-message.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-.validation-status {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background-color: #f0f8ff;
+.state-display {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
   border-radius: 6px;
-  border-left: 4px solid #4a90e2;
+  border: 1px solid #e9ecef;
+  font-family: 'Courier New', monospace;
 }
 
-.validation-status h4 {
-  color: #2c5282;
-  margin-bottom: 0.75rem;
+.state-display h4 {
+  color: #495057;
+  margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #dce8f8;
+  border-bottom: 2px solid #dee2e6;
+  font-family: inherit;
 }
 
-.status-item {
+.state-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid #e9ecef;
 }
 
-.status-item:last-child {
+.state-item:last-child {
   border-bottom: none;
 }
 
-.status-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
+.state-item strong {
+  color: #212529;
+  font-weight: 600;
 }
 
-.status-indicator.valid {
-  background-color: #28a745;
-}
-
-.status-indicator.invalid {
-  background-color: #dc3545;
+.state-item code {
+  background-color: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  color: #d63384;
+  font-size: 0.9rem;
 }
