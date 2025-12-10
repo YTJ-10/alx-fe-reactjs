@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import './RegistrationForm.css';
 
 const RegistrationForm = () => {
-  // State for form fields
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
+  // State for form fields - using separate useState hooks
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // State for form errors
   const [errors, setErrors] = useState({
@@ -20,19 +18,63 @@ const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
-  // Handle input changes
+  // Handle input changes - individual handlers
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    // Clear error for this field when user starts typing
+    if (errors.username) {
+      setErrors({
+        ...errors,
+        username: '',
+      });
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    // Clear error for this field when user starts typing
+    if (errors.email) {
+      setErrors({
+        ...errors,
+        email: '',
+      });
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    // Clear error for this field when user starts typing
+    if (errors.password) {
+      setErrors({
+        ...errors,
+        password: '',
+      });
+    }
+  };
+
+  // Alternative: Single handler approach (commented out)
+  /*
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    // Clear error for this field when user starts typing
-    setErrors({
-      ...errors,
-      [name]: '',
-    });
+    
+    // Update the appropriate state
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+    
+    // Clear error for this field
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: '',
+      });
+    }
   };
+  */
 
   // Basic validation
   const validateForm = () => {
@@ -40,28 +82,28 @@ const RegistrationForm = () => {
     const newErrors = { username: '', email: '', password: '' };
 
     // Username validation
-    if (!formData.username.trim()) {
+    if (!username.trim()) {
       newErrors.username = 'Username is required';
       valid = false;
-    } else if (formData.username.length < 3) {
+    } else if (username.length < 3) {
       newErrors.username = 'Username must be at least 3 characters';
       valid = false;
     }
 
     // Email validation
-    if (!formData.email.trim()) {
+    if (!email.trim()) {
       newErrors.email = 'Email is required';
       valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = 'Email is invalid';
       valid = false;
     }
 
     // Password validation
-    if (!formData.password) {
+    if (!password) {
       newErrors.password = 'Password is required';
       valid = false;
-    } else if (formData.password.length < 6) {
+    } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
       valid = false;
     }
@@ -83,6 +125,13 @@ const RegistrationForm = () => {
     setIsSubmitting(true);
 
     try {
+      // Prepare form data
+      const formData = {
+        username,
+        email,
+        password,
+      };
+
       // Simulate API call to mock endpoint
       const response = await fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'POST',
@@ -96,11 +145,9 @@ const RegistrationForm = () => {
         const data = await response.json();
         setSubmitMessage(`Registration successful! User ID: ${data.id || 'Mock ID'}`);
         // Reset form
-        setFormData({
-          username: '',
-          email: '',
-          password: '',
-        });
+        setUsername('');
+        setEmail('');
+        setPassword('');
       } else {
         throw new Error('Registration failed');
       }
@@ -121,8 +168,9 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
-            onChange={handleInputChange}
+            value={username}  // Controlled component: value bound to state
+            onChange={handleUsernameChange}
+            // Alternative: onChange={handleInputChange}
             className={errors.username ? 'error' : ''}
             placeholder="Enter your username"
           />
@@ -135,8 +183,9 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleInputChange}
+            value={email}  // Controlled component: value bound to state
+            onChange={handleEmailChange}
+            // Alternative: onChange={handleInputChange}
             className={errors.email ? 'error' : ''}
             placeholder="Enter your email"
           />
@@ -149,8 +198,9 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleInputChange}
+            value={password}  // Controlled component: value bound to state
+            onChange={handlePasswordChange}
+            // Alternative: onChange={handleInputChange}
             className={errors.password ? 'error' : ''}
             placeholder="Enter your password"
           />
