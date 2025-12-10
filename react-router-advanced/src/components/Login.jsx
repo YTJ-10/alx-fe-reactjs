@@ -8,9 +8,9 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, this would make an API call
+    // In a real app, this would make an API call and verify credentials
+    // For demo, we accept any input
     onLogin(); // Call the login function from App.jsx
-    alert('Login successful!');
     // Redirect to dashboard
     navigate('/dashboard');
   };
@@ -18,7 +18,7 @@ const Login = ({ onLogin }) => {
   return (
     <div className="login">
       <h2>Login Page</h2>
-      <p>This simulates authentication. In a real app, this would connect to an auth service.</p>
+      <p>This simulates authentication. Enter any username/password to login.</p>
       
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
@@ -49,7 +49,7 @@ const Login = ({ onLogin }) => {
       </form>
       
       <div className="demo-note">
-        <p><strong>Demo Credentials:</strong> Any username/password will work</p>
+        <p><strong>Demo Note:</strong> Any credentials will work. Authentication is stored in localStorage.</p>
         <p>After login, you'll be redirected to the Dashboard</p>
       </div>
     </div>

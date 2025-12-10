@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
@@ -18,15 +18,19 @@ import Login from './components/Login';
 import NotFound from './components/NotFound';
 
 function App() {
-  // State to simulate authentication (in real app, this would come from context/state)
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Initialize from localStorage
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
 
   const handleLogin = () => {
     setIsAuthenticated(true);
+    localStorage.setItem('isAuthenticated', 'true');
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated');
   };
 
   return (
@@ -65,7 +69,7 @@ function App() {
             
             {/* Blog Routes with Dynamic Routing */}
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} /> {/* Changed from :postId to :id */}
+            <Route path="/blog/:id" element={<BlogPost />} />
             
             {/* Users Routes with Dynamic Routing */}
             <Route path="/users" element={<Users />} />
@@ -75,7 +79,7 @@ function App() {
             <Route 
               path="/profile/*" 
               element={
-                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <ProtectedRoute>
                   <Profile />
                 </ProtectedRoute>
               }
@@ -89,7 +93,7 @@ function App() {
             <Route 
               path="/dashboard" 
               element={
-                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
               } 
@@ -108,6 +112,7 @@ function App() {
             <li><strong>Protected Routes:</strong> Profile and Dashboard require authentication</li>
             <li><strong>404 Handling:</strong> Custom NotFound page for invalid routes</li>
             <li><strong>Programmatic Navigation:</strong> Using useNavigate hook in components</li>
+            <li><strong>useAuth Hook:</strong> Custom hook for authentication logic</li>
           </ul>
           
           <div className="auth-status">
