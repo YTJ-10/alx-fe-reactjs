@@ -4,17 +4,17 @@ import * as Yup from 'yup';
 import './RegistrationForm.css';
 
 const FormikForm = () => {
-  // Validation schema using Yup
+  // Validation schema using Yup - with string().required() for each field
   const validationSchema = Yup.object({
     username: Yup.string()
-      .required('Username is required')
+      .string().required('Username is required')  // Added string().required()
       .min(3, 'Username must be at least 3 characters')
       .max(20, 'Username must be at most 20 characters'),
     email: Yup.string()
-      .required('Email is required')
+      .string().required('Email is required')  // Added string().required()
       .email('Invalid email address'),
     password: Yup.string()
-      .required('Password is required')
+      .string().required('Password is required')  // Added string().required()
       .min(6, 'Password must be at least 6 characters')
   });
 
