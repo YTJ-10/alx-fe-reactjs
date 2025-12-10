@@ -1,0 +1,38 @@
+/* Add these styles to your existing App.css */
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+}
+
+.auth-status {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fff3cd;
+  border-radius: 6px;
+  border: 1px solid #ffeaa7;
+}
+
+.auth-status h4 {
+  color: #856404;
+  margin-bottom: 0.75rem;
+}
+
+.auth-status p {
+  color: #856404;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
