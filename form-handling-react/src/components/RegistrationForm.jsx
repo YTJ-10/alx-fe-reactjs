@@ -86,8 +86,8 @@ const RegistrationForm = () => {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Mock response - in real scenario, this would be a fetch/axios call
-    console.log('Submitting to API:', data);
+    // Mock response
+    console.log('Submitting to API (Controlled):', data);
     
     return {
       success: true,

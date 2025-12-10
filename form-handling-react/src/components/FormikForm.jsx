@@ -30,7 +30,7 @@ const FormikForm = () => {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Mock response - in real scenario, this would be a fetch/axios call
+    // Mock response
     console.log('Submitting to API (Formik):', data);
     
     return {
