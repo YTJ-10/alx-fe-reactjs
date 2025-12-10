@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import RegistrationForm from './components/RegistrationForm';
+import FormikForm from './components/FormikForm';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeForm, setActiveForm] = useState('controlled');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <header className="App-header">
+        <h1>User Registration Forms</h1>
+        <div className="form-selector">
+          <button 
+            onClick={() => setActiveForm('controlled')}
+            className={activeForm === 'controlled' ? 'active' : ''}
+          >
+            Controlled Components
+          </button>
+          <button 
+            onClick={() => setActiveForm('formik')}
+            className={activeForm === 'formik' ? 'active' : ''}
+          >
+            Formik
+          </button>
+        </div>
+      </header>
+      
+      <main className="App-main">
+        {activeForm === 'controlled' ? <RegistrationForm /> : <FormikForm />}
+        
+        <div className="comparison">
+          <h3>Comparison</h3>
+          <div className="comparison-grid">
+            <div className="comparison-item">
+              <h4>Controlled Components</h4>
+              <ul>
+                <li>Manual state management with useState</li>
+                <li>Custom validation logic</li>
+                <li>Explicit event handlers</li>
+                <li>More boilerplate code</li>
+              </ul>
+            </div>
+            <div className="comparison-item">
+              <h4>Formik</h4>
+              <ul>
+                <li>Built-in form state management</li>
+                <li>Integrated validation with Yup</li>
+                <li>Less boilerplate code</li>
+                <li>Form, Field, and ErrorMessage components</li>
+                <li>Better for complex forms</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
