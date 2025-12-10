@@ -1,48 +1,53 @@
 import React, { useState } from 'react';
-import './RegisterationForm.css';
+import './RegistrationForm.css';
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
-  });
+  // Use separate state variables instead of a single object
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: ''
-      });
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (errors.username) {
+      setErrors({...errors, username: ''});
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (errors.email) {
+      setErrors({...errors, email: ''});
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (errors.password) {
+      setErrors({...errors, password: ''});
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.username.trim()) {
+    if (!username.trim()) {
       newErrors.username = 'Username is required';
     }
     
-    if (!formData.email.trim()) {
+    if (!email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = 'Email is invalid';
     }
     
-    if (!formData.password) {
+    if (!password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
+    } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
     
@@ -62,17 +67,16 @@ const RegistrationForm = () => {
     setSubmitMessage('');
     
     try {
-      // Simulate API call
+      // Simulate API call with form data
+      const formData = { username, email, password };
       const response = await mockApiCall(formData);
       setSubmitMessage(response.message);
       
       // Reset form on successful submission
       if (response.success) {
-        setFormData({
-          username: '',
-          email: '',
-          password: ''
-        });
+        setUsername('');
+        setEmail('');
+        setPassword('');
       }
     } catch (error) {
       setSubmitMessage('Registration failed. Please try again.');
@@ -107,8 +111,8 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}  // This is the controlled component binding
-            onChange={handleChange}
+            value={username}  // This matches "value={username}"
+            onChange={handleUsernameChange}
             className={errors.username ? 'error-input' : ''}
             placeholder="Enter username"
           />
@@ -121,8 +125,8 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}  // This is the controlled component binding
-            onChange={handleChange}
+            value={email}  // This matches "value={email}"
+            onChange={handleEmailChange}
             className={errors.email ? 'error-input' : ''}
             placeholder="Enter email"
           />
@@ -135,8 +139,8 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}  // This is the controlled component binding
-            onChange={handleChange}
+            value={password}  // This matches "value={password}"
+            onChange={handlePasswordChange}
             className={errors.password ? 'error-input' : ''}
             placeholder="Enter password"
           />
