@@ -107,7 +107,7 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
+            value={formData.username}  // This is the controlled component binding
             onChange={handleChange}
             className={errors.username ? 'error-input' : ''}
             placeholder="Enter username"
@@ -121,7 +121,7 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
+            value={formData.email}  // This is the controlled component binding
             onChange={handleChange}
             className={errors.email ? 'error-input' : ''}
             placeholder="Enter email"
@@ -135,7 +135,7 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
+            value={formData.password}  // This is the controlled component binding
             onChange={handleChange}
             className={errors.password ? 'error-input' : ''}
             placeholder="Enter password"
