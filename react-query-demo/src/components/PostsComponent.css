@@ -1,0 +1,60 @@
+/* Add this to your existing PostsComponent.css */
+
+.cache-config {
+  background-color: #e8f4f8;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #17a2b8;
+}
+
+.cache-config h3 {
+  color: #0c5460;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.cache-config ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+}
+
+.cache-config li {
+  padding: 0.5rem 0;
+  color: #333;
+  border-bottom: 1px dashed #b1dfe5;
+}
+
+.cache-config li:last-child {
+  border-bottom: none;
+}
+
+.cache-config li strong {
+  color: #138496;
+  font-weight: 600;
+}
+
+.demonstration-steps {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #fff3cd;
+  border-radius: 6px;
+  border: 1px solid #ffeaa7;
+}
+
+.demonstration-steps h4 {
+  color: #856404;
+  margin-bottom: 0.75rem;
+}
+
+.demonstration-steps ol {
+  text-align: left;
+  padding-left: 1.5rem;
+  color: #856404;
+}
+
+.demonstration-steps li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
