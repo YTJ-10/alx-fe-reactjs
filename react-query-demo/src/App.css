@@ -1,0 +1,32 @@
+.App {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+}
+
+.cache-demo {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+  text-align: left;
+}
+
+.cache-demo h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.cache-demo p {
+  color: #666;
+  line-height: 1.6;
+}

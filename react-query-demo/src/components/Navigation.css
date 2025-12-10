@@ -1,0 +1,38 @@
+.navigation {
+  margin-bottom: 2rem;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.nav-buttons button {
+  padding: 0.75rem 1.5rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button.active {
+  background-color: #007bff;
+}
+
+.nav-buttons button:hover:not(.active) {
+  background-color: #5a6268;
+}
+
+.nav-instruction {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e7f4e4;
+  color: #155724;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
